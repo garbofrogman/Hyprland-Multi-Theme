@@ -3,10 +3,10 @@
   "margin-left": 20,
   "margin-bottom": 0,
   "margin-right": 20,
-  "height": 60, 
+  "height": 30, 
   "layer": "top",
   "position": "top",
-  "output": "eDP-1",
+  //"output": "",
   "spacing": 0,
   "modules-left": ["custom/launcher", "clock#icon", "clock#time","clock#dateicon", "clock#date"],
   "modules-center": ["hyprland/workspaces"],
@@ -18,18 +18,10 @@
       "on-click": "activate",
       "on-scroll-up": "hyprctl dispatch workspace e+1",
       "on-scroll-down": "hyprctl dispatch workspace e-1",
-      "persistent_workspaces": {
+      "format-icons": {
           "1": "[]",
-          "2": [],
-          "3": [],
-          "4": [],
-          "5": [],
-          "6": [],
-          "7": [],
-          "8": [],
-          "9": [],
-          "10": []
-      },
+          "2": "[]"
+      }
   },
 
   "hyprland/window#icon": {
@@ -113,7 +105,7 @@
           "default": ["", "", ""]
       },
       "on-click-right": "pavucontrol",
-    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
   },
 
   "pulseaudio#sound": {
@@ -122,7 +114,7 @@
     "format-bluetooth-muted": "{volume}%",
     "format-muted": "muted",
     "on-click-right": "pavucontrol",
-  "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+  "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
 },
 
 "network#icon": {
