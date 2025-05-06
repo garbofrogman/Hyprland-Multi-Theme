@@ -1,7 +1,7 @@
 {
   "width": 70, 
   "layer": "top",
-  "output": "eDP-1",
+  "output": "DP-2",
   "position": "left",
   "spacing": 0,
   "modules-left": ["custom/powermenu", "hyprland/workspaces"],
