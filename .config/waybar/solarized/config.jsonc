@@ -6,7 +6,7 @@
   "height": 30, 
   "layer": "top",
   "position": "top",
-  //"output": "",
+  //"output": "DP-2",
   "spacing": 0,
   "modules-left": ["custom/launcher", "clock#icon", "clock#time","clock#dateicon", "clock#date"],
   "modules-center": ["hyprland/workspaces"],
