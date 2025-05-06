@@ -28,7 +28,7 @@ sed -i -E 's/(monitor=)(.*)()/\1'"$MAIN_DISPLAY"'\3/g' ~/.config/wofi/config
 # waybar
 killall waybar
 #waybar --config ~/.config/waybar/config.jsonc --style ~/.config/waybar/$COLOR_SCHEME/style.css &
-waybar --config ~/.config/waybar/$COLOR_SCHEME/config --style ~/.config/waybar/$COLOR_SCHEME/style.css &
+waybar --config ~/.config/waybar/$COLOR_SCHEME/config.jsonc  --style ~/.config/waybar/$COLOR_SCHEME/style.css &
 
 # gtk theme
 sh ~/.config/hypr/scripts/set-gtk-theme.sh $GTK_THEME
