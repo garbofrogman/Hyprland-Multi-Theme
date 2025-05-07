@@ -2,7 +2,7 @@
   "height": 20, 
   "layer": "top",
   "position": "top",
-  "output": "eDP-1",
+  //"output": "eDP-1",
   "spacing": 0,
   "modules-left": ["custom/launcher", "hyprland/workspaces"],
   "modules-center": ["clock#icon", "clock#time", "custom/dunst"],
@@ -93,7 +93,7 @@
           "default": ["", "", ""]
       },
       "on-click-right": "pavucontrol",
-    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
   },
 
   "pulseaudio#sound": {
@@ -102,7 +102,7 @@
     "format-bluetooth-muted": "{volume}%",
     "format-muted": "muted",
     "on-click-right": "pavucontrol",
-  "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+  "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
 },
 
 "network#icon": {
