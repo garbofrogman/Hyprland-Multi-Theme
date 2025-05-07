@@ -23,7 +23,7 @@ source ~/.config/hypr/scripts/detect-outputs.sh
 sed -i -E 's/("output": ")(.*)(",)/\1'"$MAIN_DISPLAY"'\3/g' ~/.config/waybar/$COLOR_SCHEME/config
 
 # Change Wofi main display
-sed -i -E 's/(monitor=)(.*)()/\1'"$MAIN_DISPLAY"'\3/g' ~/.config/wofi/config
+#sed -i -E 's/(monitor=)(.*)()/\1'"$MAIN_DISPLAY"'\3/g' ~/.config/wofi/config
 
 # waybar
 killall waybar

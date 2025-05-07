@@ -10,13 +10,11 @@ selected=$(echo -e $entries|wofi --dmenu $2 --style ~/.config/wofi/themes/$1.css
 case $selected in
   Mocha)
     notify-send "Mocha"
-    sed -i '1d' ~/.config/hypr/hyprland.conf
-    sed -i '1i\source = ~/.config/hypr/themes/mocha/mocha.conf' ~/.config/hypr/hyprland.conf
+    sed -i '/\%\%\%\%\%/{n;s/.*/source = ~\/.config\/hypr\/themes\/mocha\/mocha.conf/}' ~/.config/hypr/hyprland.conf 
     ;;
   Nord)
     notify-send "Nord"
-    sed -i '1d' ~/.config/hypr/hyprland.conf
-    sed -i '1i\source = ~/.config/hypr/themes/nord/nord.conf' ~/.config/hypr/hyprland.conf
+    sed -i '/\%\%\%\%\%/{n;s/.*/source = ~\/.config\/hypr\/themes\/nord\/nord.conf/}' ~/.config/hypr/hyprland.conf
     ;;
   Solarized)
     notify-send "Solarized"
