@@ -18,27 +18,22 @@ case $selected in
     ;;
   Solarized)
     notify-send "Solarized"
-    sed -i '1d' ~/.config/hypr/hyprland.conf
-    sed -i '1i\source = ~/.config/hypr/themes/solarized/solarized.conf' ~/.config/hypr/hyprland.conf
+    sed -i '/\%\%\%\%\%/{n;s/.*/source = ~\/.config\/hypr\/themes\/solarized\/solarized.conf/}' ~/.config/hypr/hyprland.conf
     ;;
   Gruvbox)
     notify-send "Gruvbox"
-    sed -i '1d' ~/.config/hypr/hyprland.conf
-    sed -i '1i\source = ~/.config/hypr/themes/gruvbox/gruvbox.conf' ~/.config/hypr/hyprland.conf
+    sed -i '/\%\%\%\%\%/{n;s/.*/source = ~\/.config\/hypr\/themes\/gruvbox\/gruvbox.conf/}' ~/.config/hypr/hyprland.conf
     ;;
   Everforest)
+    sed -i '/\%\%\%\%\%/{n;s/.*/source = ~\/.config\/hypr\/themes\/everforest\/everforest.conf/}' ~/.config/hypr/hyprland.conf
     notify-send "Everforest"
-    sed -i '1d' ~/.config/hypr/hyprland.conf
-    sed -i '1i\source = ~/.config/hypr/themes/everforest/everforest.conf' ~/.config/hypr/hyprland.conf
     ;;
   Summer-Day)
+    sed -i '/\%\%\%\%\%/{n;s/.*/source = ~\/.config\/hypr\/themes\/summer-day\/summer-day.conf/}' ~/.config/hypr/hyprland.conf
     notify-send "Summer-Day"
-    sed -i '1d' ~/.config/hypr/hyprland.conf
-    sed -i '1i\source = ~/.config/hypr/themes/summer-day/summer-day.conf' ~/.config/hypr/hyprland.conf
     ;;
   Summer-Night)
+    sed -i '/\%\%\%\%\%/{n;s/.*/source = ~\/.config\/hypr\/themes\/summer-day\/summer-day.conf/}' ~/.config/hypr/hyprland.conf
     notify-send "Summer-Night"
-    sed -i '1d' ~/.config/hypr/hyprland.conf
-    sed -i '1i\source = ~/.config/hypr/themes/summer-night/summer-night.conf' ~/.config/hypr/hyprland.conf
     ;;
 esac
