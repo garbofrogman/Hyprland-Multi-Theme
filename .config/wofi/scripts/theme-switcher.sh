@@ -37,3 +37,5 @@ case $selected in
     notify-send "Summer-Night"
     ;;
 esac
+
+hyprctl reload
