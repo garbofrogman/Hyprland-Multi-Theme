@@ -1,12 +1,13 @@
 {
     "gtkTheme": "gruvbox-dark-gtk",
     "kvantumTheme": "Gruvbox-Dark-Blue",
-    "iconTheme": "GruvboxPlus",
+    "iconTheme": "Gruvbox-Plus-Dark",
     "colorScheme": "gruvbox",
     "vsCodeTheme": "GrunBoxTheme",
     "vsCodeExtraColors" : "",
     "nvimTheme": "gruvbox",
     "obsidianTheme": "Obsidian gruvbox",
+    "webcordTheme": "gruvbox-dark.theme.css",
     "font": "Berkeley Mono",
     "darkReaderColors": {"background": "#282828", "text": "#ebdbb2"}
 }

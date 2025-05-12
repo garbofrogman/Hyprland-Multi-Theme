@@ -60,6 +60,10 @@ then
     rm .config/WebCord/Themes/*
     cp .config/themes/webcord/$WEBCORD_THEME .config/WebCord/Themes/
 
+    # Vencord Flatpak
+    #rm --interactive=never ~/.var/app/com.discordapp.Discord/config/Vencord/themes/*
+    #cp .config/themes/webcord/$WEBCORD_THEME ~/.var/app/com.discordapp.Discord/config/Vencord/themes/ 
+
     # Betterdiscord
     cp .config/themes/betterdiscord/$BETTERDISCORD_THEME/themes.json .config/BetterDiscord/data/stable/
 

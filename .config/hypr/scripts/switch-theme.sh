@@ -9,6 +9,7 @@ ICON_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".iconTheme")
 FONT=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".font")
 NVIM_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".nvimTheme")
 OBSIDIAN_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".obsidianTheme")
+WEBCORD_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".webcordTheme")
 VS_CODE_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".vsCodeTheme")
 VS_CODE_EXTRA_COLORS=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".vsCodeExtraColors")
 DARK_READER_BACKGROUND_COLOR=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".darkReaderColors.background")
@@ -78,11 +79,14 @@ sed -i -E 's/("monospaceFontFamily": ")(.*)(",)/\1'"$FONT"'\3/g' "$VAULT_DIRECTO
 sed -i -E 's/("interfaceFontFamily": ")(.*)(")/\1'"$FONT"'\3/g' "$VAULT_DIRECTORY/.obsidian/appearance.json"
 
 # Webcord
-rm ~/.config/WebCord/Themes/*
-cp ~/.config/themes/webcord/$COLOR_SCHEME ~/.config/WebCord/Themes/
+# rm ~/.config/WebCord/Themes/*
+# cp ~/.config/themes/webcord/$COLOR_SCHEME ~/.config/WebCord/Themes/
+
+# Vencord Flatpak
+cat ~/.config/themes/webcord/$WEBCORD_THEME > ~/.var/app/com.discordapp.Discord/config/Vencord/themes/auto-theme.css
 
 # Betterdiscord
-cp ~/.config/themes/betterdiscord/$COLOR_SCHEME/themes.json ~/.config/BetterDiscord/data/stable/
+# cp ~/.config/themes/betterdiscord/$COLOR_SCHEME/themes.json ~/.config/BetterDiscord/data/stable/
 
 # Firefox
 rm -r ~/.mozilla/firefox/*.default-release/chrome
