@@ -83,6 +83,8 @@ sed -i -E 's/("interfaceFontFamily": ")(.*)(")/\1'"$FONT"'\3/g' "$VAULT_DIRECTOR
 # cp ~/.config/themes/webcord/$COLOR_SCHEME ~/.config/WebCord/Themes/
 
 # Vencord Flatpak
+#if [[ "$WEBCORD_THEME" ]]
+#then
 cat ~/.config/themes/webcord/$WEBCORD_THEME > ~/.var/app/com.discordapp.Discord/config/Vencord/themes/auto-theme.css
 
 # Betterdiscord

@@ -7,6 +7,7 @@
     "vsCodeExtraColors" : "\"window.background\":\"#2e3440e5\",\"editor.background\":\"#2e344000\",\"editorGutter.background\":\"#2e344000\"",
     "nvimTheme": "nord",
     "obsidianTheme": "Obsidian Nord",
+    "webcordTheme" : "nordic.vencord.css",
     "font": "JetBrainsMono Nerd Font",
     "darkReaderColors": {"background": "#2e3440", "text": "#eceff4"}
 }
