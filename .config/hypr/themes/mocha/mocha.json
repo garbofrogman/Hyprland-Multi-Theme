@@ -7,6 +7,7 @@
     "vsCodeExtraColors" : "",
     "nvimTheme": "catppuccin",
     "obsidianTheme": "Catppuccin",
+    "webcordTheme" : "mocha.theme.css",
     "font": "SF Mono",
     "darkReaderColors": {"background": "#1e1e2e", "text": "#cdd6f4"}
 }
