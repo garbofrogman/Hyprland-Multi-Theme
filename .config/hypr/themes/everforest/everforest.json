@@ -7,6 +7,7 @@
     "vsCodeExtraColors" : "",
     "nvimTheme": "everforest",
     "obsidianTheme": "Everforest",
+    "webcordTheme": "everforest.theme.css",
     "font": "RobotoMono Nerd Font",
     "darkReaderColors": {"background": "#2d353b", "text": "#d3c6aa"}
 }
