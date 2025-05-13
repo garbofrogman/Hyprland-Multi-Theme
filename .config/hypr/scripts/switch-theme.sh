@@ -72,11 +72,16 @@ sed -i -E 's/("editor.fontFamily": ")(.*)(,.*,.*",)/\1'"$FONT"'\3/g' '.config/Co
 sed -i -E '8 s/(theme = ")(.*)(",)/\1'"$NVIM_THEME"'\3/g' ~/.config/nvim/lua/custom/chadrc.lua
 
 # Obsidian theme (change the vault name/directory)
-VAULT_DIRECTORY="Documents/Obsidian Vault"
-sed -i -E 's/("cssTheme": ")(.*)(",)/\1'"$OBSIDIAN_THEME"'\3/g' "$VAULT_DIRECTORY/.obsidian/appearance.json"
-sed -i -E 's/("textFontFamily": ")(.*)(",)/\1'"$FONT"'\3/g' "$VAULT_DIRECTORY/.obsidian/appearance.json"
-sed -i -E 's/("monospaceFontFamily": ")(.*)(",)/\1'"$FONT"'\3/g' "$VAULT_DIRECTORY/.obsidian/appearance.json"
-sed -i -E 's/("interfaceFontFamily": ")(.*)(")/\1'"$FONT"'\3/g' "$VAULT_DIRECTORY/.obsidian/appearance.json"
+#VAULT_DIRECTORY="Documents/Obsidian/Vaults/Second Brain"
+OBSIDIAN_CONFIG="Documents/Obsidian/Vaults/Second Brain/.obsidian/"
+mv "$OBSIDIAN_CONFIG/appearance.json" tmp.json
+jq -r --arg THEME "$OBSIDIAN_THEME" '.cssTheme = $THEME' tmp.json > $OBSIDIAN_CONFIG/appearance.json
+rm tmp.json
+xdg-open "obsidian://adv-uri?vault=Second%20Brain&commandid=app%3Areload"
+#sed -i -E 's/("cssTheme": ")(.*)(",)/\1'"$OBSIDIAN_THEME"'\3/g' "$VAULT_DIRECTORY/.obsidian/appearance.json"
+#sed -i -E 's/("textFontFamily": ")(.*)(",)/\1'"$FONT"'\3/g' "$VAULT_DIRECTORY/.obsidian/appearance.json"
+#sed -i -E 's/("monospaceFontFamily": ")(.*)(",)/\1'"$FONT"'\3/g' "$VAULT_DIRECTORY/.obsidian/appearance.json"
+#sed -i -E 's/("interfaceFontFamily": ")(.*)(")/\1'"$FONT"'\3/g' "$VAULT_DIRECTORY/.obsidian/appearance.json"
 
 # Webcord
 # rm ~/.config/WebCord/Themes/*
