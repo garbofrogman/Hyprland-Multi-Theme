@@ -7,6 +7,7 @@ KVANTUM_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".kvantumTheme")
 COLOR_SCHEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".colorScheme")
 ICON_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".iconTheme")
 FONT=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".font")
+KITTEN_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".kittyTheme")
 NVIM_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".nvimTheme")
 OBSIDIAN_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".obsidianTheme")
 WEBCORD_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".webcordTheme")
@@ -29,20 +30,19 @@ sed -i -E 's/("output": ")(.*)(",)/\1'"$MAIN_DISPLAY"'\3/g' ~/.config/waybar/$CO
 # waybar
 killall waybar
 #waybar --config ~/.config/waybar/config.jsonc --style ~/.config/waybar/$COLOR_SCHEME/style.css &
-waybar --config ~/.config/waybar/$COLOR_SCHEME/config.jsonc  --style ~/.config/waybar/$COLOR_SCHEME/style.css &
+waybar --config ~/.config/waybar/$COLOR_SCHEME/config.jsonc --style ~/.config/waybar/$COLOR_SCHEME/style.css &
 
 # gtk theme
 sh ~/.config/hypr/scripts/set-gtk-theme.sh $GTK_THEME
 
 # Kvantum Theme
-if [[ ! "$KVANTUM_THEME" ]] # If no kvantum theme is set, use gtk2 QT style
-then 
-    sed -i -E 's/(style=)(.*)/\1'"gtk2"'/g' ~/.config/qt5ct/qt5ct.conf
-    sed -i -E 's/(style=)(.*)/\1'"gtk2"'/g' ~/.config/qt6ct/qt6ct.conf
+if [[ ! "$KVANTUM_THEME" ]]; then # If no kvantum theme is set, use gtk2 QT style
+  sed -i -E 's/(style=)(.*)/\1'"gtk2"'/g' ~/.config/qt5ct/qt5ct.conf
+  sed -i -E 's/(style=)(.*)/\1'"gtk2"'/g' ~/.config/qt6ct/qt6ct.conf
 else
-    sed -i -E 's/(style=)(.*)/\1'"kvantum"'/g' ~/.config/qt5ct/qt5ct.conf
-    sed -i -E 's/(style=)(.*)/\1'"kvantum"'/g' ~/.config/qt6ct/qt6ct.conf
-    kvantummanager --set $KVANTUM_THEME
+  sed -i -E 's/(style=)(.*)/\1'"kvantum"'/g' ~/.config/qt5ct/qt5ct.conf
+  sed -i -E 's/(style=)(.*)/\1'"kvantum"'/g' ~/.config/qt6ct/qt6ct.conf
+  kvantummanager --set $KVANTUM_THEME
 fi
 
 # font
@@ -59,29 +59,26 @@ sed -i -E 's/(icon_theme=)(.*)/\1'"$ICON_THEME"'/g' ~/.config/qt5ct/qt5ct.conf
 sed -i -E 's/(icon_theme=)(.*)/\1'"$ICON_THEME"'/g' ~/.config/qt6ct/qt6ct.conf
 
 # kitty
-sed -i '1d' ~/.config/kitty/kitty.conf
-sed -i '1i\include colors/'$COLOR_SCHEME'.conf' ~/.config/kitty/kitty.conf
-kill -s USR1 $(pidof kitty) # reload kitty config
+kitten themes $KITTEN_THEME
+echo $KITTEN_THEME >>~/tmp/test.sh
 
 # vs code theme
-sed -i -E 's/("workbench.colorTheme": ")(.*)(",)/\1'"$VS_CODE_THEME"'\3/g' '.config/Code - OSS/User/settings.json'
-sed -i -E 's/("workbench.colorCustomizations": \{)(.*)(\},)/\1'"$VS_CODE_EXTRA_COLORS"'\3/g' '.config/Code - OSS/User/settings.json'
-sed -i -E 's/("editor.fontFamily": ")(.*)(,.*,.*",)/\1'"$FONT"'\3/g' '.config/Code - OSS/User/settings.json'
+#sed -i -E 's/("workbench.colorTheme": ")(.*)(",)/\1'"$VS_CODE_THEME"'\3/g' '.config/Code - OSS/User/settings.json'
+#sed -i -E 's/("workbench.colorCustomizations": \{)(.*)(\},)/\1'"$VS_CODE_EXTRA_COLORS"'\3/g' '.config/Code - OSS/User/settings.json'
+#sed -i -E 's/("editor.fontFamily": ")(.*)(,.*,.*",)/\1'"$FONT"'\3/g' '.config/Code - OSS/User/settings.json'
 
 # Nvim theme
-sed -i -E '8 s/(theme = ")(.*)(",)/\1'"$NVIM_THEME"'\3/g' ~/.config/nvim/lua/custom/chadrc.lua
+# sed -i -E '8 s/(theme = ")(.*)(",)/\1'"$NVIM_THEME"'\3/g' ~/.config/nvim/lua/custom/chadrc.lua
 
 # Obsidian theme (change the vault name/directory)
-#VAULT_DIRECTORY="Documents/Obsidian/Vaults/Second Brain"
 OBSIDIAN_CONFIG="Documents/Obsidian/Vaults/Second Brain/.obsidian/"
 mv "$OBSIDIAN_CONFIG/appearance.json" tmp.json
-jq -r --arg THEME "$OBSIDIAN_THEME" '.cssTheme = $THEME' tmp.json > $OBSIDIAN_CONFIG/appearance.json
+jq -r --arg THEME "$OBSIDIAN_THEME" '.cssTheme = $THEME' tmp.json >$OBSIDIAN_CONFIG/appearance.json
 rm tmp.json
-xdg-open "obsidian://adv-uri?vault=Second%20Brain&commandid=app%3Areload"
-#sed -i -E 's/("cssTheme": ")(.*)(",)/\1'"$OBSIDIAN_THEME"'\3/g' "$VAULT_DIRECTORY/.obsidian/appearance.json"
-#sed -i -E 's/("textFontFamily": ")(.*)(",)/\1'"$FONT"'\3/g' "$VAULT_DIRECTORY/.obsidian/appearance.json"
-#sed -i -E 's/("monospaceFontFamily": ")(.*)(",)/\1'"$FONT"'\3/g' "$VAULT_DIRECTORY/.obsidian/appearance.json"
-#sed -i -E 's/("interfaceFontFamily": ")(.*)(")/\1'"$FONT"'\3/g' "$VAULT_DIRECTORY/.obsidian/appearance.json"
+# Reload if obsidian is running. Requires Advanced-URI plugin
+if pgrep -x "obsidian" >/dev/null; then
+  xdg-open "obsidian://adv-uri?vault=Second%20Brain&commandid=app%3Areload"
+fi
 
 # Webcord
 # rm ~/.config/WebCord/Themes/*
@@ -90,7 +87,7 @@ xdg-open "obsidian://adv-uri?vault=Second%20Brain&commandid=app%3Areload"
 # Vencord Flatpak
 #if [[ "$WEBCORD_THEME" ]]
 #then
-cat ~/.config/themes/webcord/$WEBCORD_THEME > ~/.var/app/com.discordapp.Discord/config/Vencord/themes/auto-theme.css
+cat ~/.config/themes/webcord/$WEBCORD_THEME >~/.var/app/com.discordapp.Discord/config/Vencord/themes/auto-theme.css
 
 # Betterdiscord
 # cp ~/.config/themes/betterdiscord/$COLOR_SCHEME/themes.json ~/.config/BetterDiscord/data/stable/
