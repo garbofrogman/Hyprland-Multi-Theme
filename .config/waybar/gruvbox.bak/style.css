@@ -100,8 +100,8 @@ tooltip label {
   font-size: 19px;
   color: @bg;
   background-color: @red;
-  padding: 0px 7px 0px 5px; /* Space between button text and button edges */
-  margin: 7px 0px 7px 5px; /* Space around button */
+  margin: 7px 0px 7px 5px;
+  padding: 0px 20px 0px 17px;
 }
 
 #clock.time {
@@ -118,14 +118,14 @@ tooltip label {
   color: @bg;
   background-color: @green;
   margin: 7px 0px 7px 5px;
-  padding: 0px 7px 0px 5px;
+  padding: 0px 23px 0px 17px;
 }
 
 #clock.date {
   color: @bg;
   background-color: @fg4;
   margin: 7px 5px 7px 0px;
-  padding: 0px 7px 0px 5px;
+  padding: 0px 11px 0px 10px;
 }
 
 /* ========= NOTIFICATIONS ========= */

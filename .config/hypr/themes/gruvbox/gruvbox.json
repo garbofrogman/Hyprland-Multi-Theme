@@ -2,6 +2,7 @@
     "gtkTheme": "gruvbox-dark-gtk",
     "kvantumTheme": "Gruvbox-Dark-Blue",
     "iconTheme": "Gruvbox-Plus-Dark",
+    "kittyTheme": "Gruvbox",
     "colorScheme": "gruvbox",
     "vsCodeTheme": "GrunBoxTheme",
     "vsCodeExtraColors" : "",

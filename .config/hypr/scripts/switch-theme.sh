@@ -3,6 +3,7 @@
 # getting json config values
 THEME_CONFIG="~/.config/hypr/themes/$1/$1.json"
 GTK_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".gtkTheme")
+THEME_TYPE=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".themeType" | awk '{print tolower($0)}') # light/dark (converted to lowercase)
 KVANTUM_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".kvantumTheme")
 COLOR_SCHEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".colorScheme")
 ICON_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".iconTheme")
@@ -34,6 +35,13 @@ waybar --config ~/.config/waybar/$COLOR_SCHEME/config.jsonc --style ~/.config/wa
 
 # gtk theme
 sh ~/.config/hypr/scripts/set-gtk-theme.sh $GTK_THEME
+
+# Light/dark theme
+#if [["$THEME_TYPE"]]; then
+
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-'$THEME_TYPE
+echo $THEME_TYPE >>~/tmp/test.sh
+#fi
 
 # Kvantum Theme
 if [[ ! "$KVANTUM_THEME" ]]; then # If no kvantum theme is set, use gtk2 QT style
