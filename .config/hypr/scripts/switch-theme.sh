@@ -16,6 +16,7 @@ VS_CODE_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".vsCodeTheme")
 VS_CODE_EXTRA_COLORS=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".vsCodeExtraColors")
 DARK_READER_BACKGROUND_COLOR=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".darkReaderColors.background")
 DARK_READER_TEXT_COLOR=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".darkReaderColors.text")
+HYPRLOCK_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".hyprLockTheme")
 
 # wallpaper
 killall hyprpaper
@@ -27,6 +28,11 @@ sed -i -E 's/("output": ")(.*)(",)/\1'"$MAIN_DISPLAY"'\3/g' ~/.config/waybar/$CO
 
 # Change Wofi main display
 #sed -i -E 's/(monitor=)(.*)()/\1'"$MAIN_DISPLAY"'\3/g' ~/.config/wofi/config
+#
+# Lock screen
+if [ "$HYPRLOCK_THEME" != "null" ]; then
+  ln -sf hyprlock/$HYPRLOCK_THEME.conf ~/.config/hypr/hyprlock.conf
+fi
 
 # waybar
 killall waybar
@@ -37,11 +43,9 @@ waybar --config ~/.config/waybar/$COLOR_SCHEME/config.jsonc --style ~/.config/wa
 sh ~/.config/hypr/scripts/set-gtk-theme.sh $GTK_THEME
 
 # Light/dark theme
-#if [["$THEME_TYPE"]]; then
-
-gsettings set org.gnome.desktop.interface color-scheme 'prefer-'$THEME_TYPE
-echo $THEME_TYPE >>~/tmp/test.sh
-#fi
+if [ $THEME_TYPE != "null" ]; then
+  gsettings set org.gnome.desktop.interface color-scheme 'prefer-'$THEME_TYPE
+fi
 
 # Kvantum Theme
 if [[ ! "$KVANTUM_THEME" ]]; then # If no kvantum theme is set, use gtk2 QT style

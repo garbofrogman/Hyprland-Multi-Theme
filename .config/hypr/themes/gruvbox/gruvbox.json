@@ -3,6 +3,7 @@
     "kvantumTheme": "Gruvbox-Dark-Blue",
     "iconTheme": "Gruvbox-Plus-Dark",
     "kittyTheme": "Gruvbox",
+    "hyprLockTheme": "hyprlock-gruvbox",
     "colorScheme": "gruvbox",
     "vsCodeTheme": "GrunBoxTheme",
     "vsCodeExtraColors" : "",

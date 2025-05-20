@@ -4,6 +4,7 @@
     "kvantumTheme": "Catppuccin-Mocha",
     "iconTheme": "Papirus-Dark",
     "colorScheme": "mocha",
+    "hyprLockTheme": "hyprlock-mocha",
     "kittyTheme": "Catppuccin Mocha 🌿",
     "vsCodeTheme": "Catppuccin Mocha",
     "vsCodeExtraColors" : "",
