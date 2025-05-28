@@ -99,8 +99,9 @@ fi
 # Vencord Flatpak
 #if [[ "$WEBCORD_THEME" ]]
 #then
-cat ~/.config/themes/webcord/$WEBCORD_THEME >~/.var/app/com.discordapp.Discord/config/Vencord/themes/auto-theme.css
-
+if [ "$WEBCORD_THEME" != "null" ]; then
+  cat ~/.config/themes/webcord/$WEBCORD_THEME >~/.var/app/com.discordapp.Discord/config/Vencord/themes/auto-theme.css
+fi
 # Betterdiscord
 # cp ~/.config/themes/betterdiscord/$COLOR_SCHEME/themes.json ~/.config/BetterDiscord/data/stable/
 
