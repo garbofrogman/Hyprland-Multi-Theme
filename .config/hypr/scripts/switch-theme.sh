@@ -18,32 +18,43 @@ DARK_READER_BACKGROUND_COLOR=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".da
 DARK_READER_TEXT_COLOR=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".darkReaderColors.text")
 HYPRLOCK_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".hyprLockTheme")
 
-# wallpaper
-killall hyprpaper
-hyprpaper -c ~/.config/hypr/hyprpaper/$COLOR_SCHEME.conf &
+local output = ""
 
-# Change Waybar output depending on monitor
-source ~/.config/hypr/scripts/detect-outputs.sh
-sed -i -E 's/("output": ")(.*)(",)/\1'"$MAIN_DISPLAY"'\3/g' ~/.config/waybar/$COLOR_SCHEME/config
+if [ ! -z $COLOR_SCHEME ]; then
+  output=$"COLOR_SCHEME : ${COLOR_SCHEME}"
+  # wallpaper
+  killall hyprpaper
+  hyprpaper -c ~/.config/hypr/hyprpaper/$COLOR_SCHEME.conf &
+  # waybar
+  killall waybar
+  waybar --config ~/.config/waybar/$COLOR_SCHEME/config.jsonc --style ~/.config/waybar/$COLOR_SCHEME/style.css &
+  # Change Waybar output depending on monitor
+  source ~/.config/hypr/scripts/detect-outputs.sh
+  sed -i -E 's/("output": ")(.*)(",)/\1'"$MAIN_DISPLAY"'\3/g' ~/.config/waybar/$COLOR_SCHEME/config
+# Nvim theme
+# if [ -z $NVIM_THEME ]; then
+#   sed
+# fi
+# sed -i -E '8 s/(theme = ")(.*)(",)/\1'"$NVIM_THEME"'\3/g' ~/.config/nvim/lua/custom/chadrc.lua
+fi
 
 # Change Wofi main display
 #sed -i -E 's/(monitor=)(.*)()/\1'"$MAIN_DISPLAY"'\3/g' ~/.config/wofi/config
 #
 # Lock screen
 if [ "$HYPRLOCK_THEME" != "null" ]; then
+  output=$"${output} \n HYPRLOCK_THEME : ${HYPRLOCK_THEME}"
   ln -sf hyprlock/$HYPRLOCK_THEME.conf ~/.config/hypr/hyprlock.conf
 fi
 
-# waybar
-killall waybar
-#waybar --config ~/.config/waybar/config.jsonc --style ~/.config/waybar/$COLOR_SCHEME/style.css &
-waybar --config ~/.config/waybar/$COLOR_SCHEME/config.jsonc --style ~/.config/waybar/$COLOR_SCHEME/style.css &
-
-# gtk theme
-sh ~/.config/hypr/scripts/set-gtk-theme.sh $GTK_THEME
+if [ ! -z $GTK_THEME ]; then
+  # gtk theme
+  sh ~/.config/hypr/scripts/set-gtk-theme.sh $GTK_THEME
+fi
 
 # Light/dark theme
 if [ $THEME_TYPE != "null" ]; then
+  output=$"${output} \n ${THEME_TYPE}"
   gsettings set org.gnome.desktop.interface color-scheme 'prefer-'$THEME_TYPE
 fi
 
@@ -52,66 +63,72 @@ if [[ ! "$KVANTUM_THEME" ]]; then # If no kvantum theme is set, use gtk2 QT styl
   sed -i -E 's/(style=)(.*)/\1'"gtk2"'/g' ~/.config/qt5ct/qt5ct.conf
   sed -i -E 's/(style=)(.*)/\1'"gtk2"'/g' ~/.config/qt6ct/qt6ct.conf
 else
+  output="${output} \n ${KVANTUM_THEME}"
   sed -i -E 's/(style=)(.*)/\1'"kvantum"'/g' ~/.config/qt5ct/qt5ct.conf
   sed -i -E 's/(style=)(.*)/\1'"kvantum"'/g' ~/.config/qt6ct/qt6ct.conf
   kvantummanager --set $KVANTUM_THEME
 fi
 
-# font
-gsettings set org.gnome.desktop.interface font-name "$FONT"
-sed -i -E 's/(fixed=")(.*)(,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*)/\1'"$FONT"'\3/g' ~/.config/qt5ct/qt5ct.conf
-sed -i -E 's/(general=")(.*)(,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*)/\1'"$FONT"'\3/g' ~/.config/qt5ct/qt5ct.conf
+if [ ! -z $FONT ]; then
+  output="${output} \n ${FONT}"
+  # font
+  gsettings set org.gnome.desktop.interface font-name "$FONT"
+  sed -i -E 's/(fixed=")(.*)(,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*)/\1'"$FONT"'\3/g' ~/.config/qt5ct/qt5ct.conf
+  sed -i -E 's/(general=")(.*)(,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*)/\1'"$FONT"'\3/g' ~/.config/qt5ct/qt5ct.conf
 
-sed -i -E 's/(fixed=")(.*)(,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*)/\1'"$FONT"'\3/g' ~/.config/qt6ct/qt6ct.conf
-sed -i -E 's/(general=")(.*)(,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*)/\1'"$FONT"'\3/g' ~/.config/qt6ct/qt6ct.conf
+  sed -i -E 's/(fixed=")(.*)(,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*)/\1'"$FONT"'\3/g' ~/.config/qt6ct/qt6ct.conf
+  sed -i -E 's/(general=")(.*)(,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*)/\1'"$FONT"'\3/g' ~/.config/qt6ct/qt6ct.conf
+fi
 
-# icon theme
-gsettings set org.gnome.desktop.interface icon-theme $ICON_THEME
-sed -i -E 's/(icon_theme=)(.*)/\1'"$ICON_THEME"'/g' ~/.config/qt5ct/qt5ct.conf
-sed -i -E 's/(icon_theme=)(.*)/\1'"$ICON_THEME"'/g' ~/.config/qt6ct/qt6ct.conf
+if [ ! -z $ICON_THEME ]; then
+  output="${output} \n ${ICON_THEME}"
+  # icon theme
+  gsettings set org.gnome.desktop.interface icon-theme $ICON_THEME
+  sed -i -E 's/(icon_theme=)(.*)/\1'"$ICON_THEME"'/g' ~/.config/qt5ct/qt5ct.conf
+  sed -i -E 's/(icon_theme=)(.*)/\1'"$ICON_THEME"'/g' ~/.config/qt6ct/qt6ct.conf
+fi
 
-# kitty
-kitten themes $KITTEN_THEME
-echo $KITTEN_THEME >>~/tmp/test.sh
+if [ ! -z $KITTEN_THEME ]; then
+  output="${output} \n ${KITTEN_THEME}"
+  # kitty
+  kitten themes $KITTEN_THEME
+fi
 
 # vs code theme
 #sed -i -E 's/("workbench.colorTheme": ")(.*)(",)/\1'"$VS_CODE_THEME"'\3/g' '.config/Code - OSS/User/settings.json'
 #sed -i -E 's/("workbench.colorCustomizations": \{)(.*)(\},)/\1'"$VS_CODE_EXTRA_COLORS"'\3/g' '.config/Code - OSS/User/settings.json'
 #sed -i -E 's/("editor.fontFamily": ")(.*)(,.*,.*",)/\1'"$FONT"'\3/g' '.config/Code - OSS/User/settings.json'
 
-# Nvim theme
-# sed -i -E '8 s/(theme = ")(.*)(",)/\1'"$NVIM_THEME"'\3/g' ~/.config/nvim/lua/custom/chadrc.lua
-
-# Obsidian theme (change the vault name/directory)
-OBSIDIAN_CONFIG="Documents/Obsidian/Vaults/Second Brain/.obsidian/"
-mv "$OBSIDIAN_CONFIG/appearance.json" tmp.json
-jq -r --arg THEME "$OBSIDIAN_THEME" '.cssTheme = $THEME' tmp.json >$OBSIDIAN_CONFIG/appearance.json
-rm tmp.json
-# Reload if obsidian is running. Requires Advanced-URI plugin
-if pgrep -x "obsidian" >/dev/null; then
-  xdg-open "obsidian://adv-uri?vault=Second%20Brain&commandid=app%3Areload"
+if [ ! -z $OBSIDIAN_THEME ]; then
+  output="${output} \n ${OBSIDIAN_THEME}"
+  # Obsidian theme (change the vault name/directory)
+  OBSIDIAN_CONFIG="Documents/Obsidian/Vaults/Second Brain/.obsidian/"
+  mv "$OBSIDIAN_CONFIG/appearance.json" tmp.json
+  jq -r --arg THEME "$OBSIDIAN_THEME" '.cssTheme = $THEME' tmp.json >$OBSIDIAN_CONFIG/appearance.json
+  rm tmp.json
+  # Reload if obsidian is running. Requires Advanced-URI plugin
+  if pgrep -x "obsidian" >/dev/null; then
+    xdg-open "obsidian://adv-uri?vault=Second%20Brain&commandid=app%3Areload"
+  fi
 fi
 
-# Webcord
-# rm ~/.config/WebCord/Themes/*
-# cp ~/.config/themes/webcord/$COLOR_SCHEME ~/.config/WebCord/Themes/
-
 # Vencord Flatpak
-#if [[ "$WEBCORD_THEME" ]]
-#then
 if [ "$WEBCORD_THEME" != "null" ]; then
+  output="${output} \n ${WEBCORD_THEME}"
   cat ~/.config/themes/webcord/$WEBCORD_THEME >~/.var/app/com.discordapp.Discord/config/Vencord/themes/auto-theme.css
 fi
 # Betterdiscord
 # cp ~/.config/themes/betterdiscord/$COLOR_SCHEME/themes.json ~/.config/BetterDiscord/data/stable/
 
 # Firefox
-rm -r ~/.mozilla/firefox/*.default-release/chrome
-cp -r ~/.config/themes/firefox/$COLOR_SCHEME/chrome ~/.mozilla/firefox/*.default-release/
+# rm -r ~/.mozilla/firefox/*.default-release/chrome
+# cp -r ~/.config/themes/firefox/$COLOR_SCHEME/chrome ~/.mozilla/firefox/*.default-release/
 
 # Zathura theme
-cp ~/.config/themes/zathura/$COLOR_SCHEME/zathurarc ~/.config/zathura/
+# cp ~/.config/themes/zathura/$COLOR_SCHEME/zathurarc ~/.config/zathura/
 
 # Dark Reader colors
-sqlite3 .mozilla/firefox/*.default-release/storage-sync-v2.sqlite "UPDATE storage_sync_data SET data = json_replace(data, '$.theme.darkSchemeBackgroundColor', '$DARK_READER_BACKGROUND_COLOR') WHERE ext_id LIKE 'addon@darkreader.org';"
-sqlite3 .mozilla/firefox/*.default-release/storage-sync-v2.sqlite "UPDATE storage_sync_data SET data = json_replace(data, '$.theme.darkSchemeTextColor', '$DARK_READER_TEXT_COLOR') WHERE ext_id LIKE 'addon@darkreader.org';"
+# sqlite3 .mozilla/firefox/*.default-release/storage-sync-v2.sqlite "UPDATE storage_sync_data SET data = json_replace(data, '$.theme.darkSchemeBackgroundColor', '$DARK_READER_BACKGROUND_COLOR') WHERE ext_id LIKE 'addon@darkreader.org';"
+# sqlite3 .mozilla/firefox/*.default-release/storage-sync-v2.sqlite "UPDATE storage_sync_data SET data = json_replace(data, '$.theme.darkSchemeTextColor', '$DARK_READER_TEXT_COLOR') WHERE ext_id LIKE 'addon@darkreader.org';"
+
+#echo "${output}" >/tmp/test

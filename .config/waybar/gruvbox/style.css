@@ -1,12 +1,5 @@
 @import "../colors/gruvbox.css";
 @import "../global.css";
-
-/* margin: top right bottom left */
-/* Spacing outside the element */
-
-/* padding: top right bottom left */
-/* Spacing inside the element */
-
 /*
 * {
   font-family: Berkeley Mono, FontAwesome;
@@ -16,17 +9,15 @@
 */
 
 window#waybar {
-  background-color: @bg;
+  background-color: rgba(40, 40, 40, 0.5);
   color: @bg;
   transition-property: background-color;
   transition-duration: 0.5s;
   border-radius: 0px;
   transition-duration: .5s;
-  margin: 0px 0px 0px 0px;
-
-  border-bottom-width: 2px;
-  border-bottom-color: @fg;
-  border-bottom-style: solid;
+  /*border-bottom-width: 2px;*/
+  /*border-bottom-color: @fg;*/
+  /*border-bottom-style: solid;*/
 }
 
 window#waybar.hidden {
@@ -34,6 +25,7 @@ window#waybar.hidden {
 }
 
 tooltip {
+  border-radius: 8px;
   background: @bg4;
 }
 
@@ -42,18 +34,16 @@ tooltip label {
 }
 
 #workspaces {
-  border-radius: 0px;
+  border-radius: 8px;
   transition: none;
   background: @fg4;
-  margin: 0px 0px 0px 0px;
+  
 }
 
 #workspaces button{
+  border-radius: 8px;
   color: @bg;
   background: @fg4;
-  border-radius: 0px;
-  padding: 0px 0px 0px 0px;
-  margin: 0px 0px 0px 0px;
 }
 
 #workspaces button:hover {
@@ -64,9 +54,12 @@ tooltip label {
 #workspaces button.active {
   color: @bg;
   background: @blue;
-  padding: 0px 0px 0px 0px;
+  
 }
 
+*{
+  border-radius: 0px 8px 8px 0px;
+}
 
 #custom-launcher,
 #clock,
@@ -79,8 +72,6 @@ tooltip label {
 #memory,
 #custom-dunst,
 #custom-powermenu {
-  padding: 0px 0px 0px 0px;
-  margin:0px 0px 0px 0px;
   color: @blue;
   background-color: @fg4;
 }
@@ -91,8 +82,8 @@ tooltip label {
   color: @bg;
   background-color: @fg4;
   border-radius: 0px;
-  padding: 0px 0px 0px 0px; /* Space between button text and button edges */
-  margin: 0px 0px 0px 0px; /* Space around button */
+  
+  
 }
 
 /* ========= CLOCK ========= */
@@ -101,15 +92,15 @@ tooltip label {
   font-size: 22px;
   color: @bg;
   background-color: @red;
-  padding: 0px 2px 0px 2px; /* Space between button text and button edges */
-  margin: 0px 0px 0px 0px; /* Space around button */
+  
+  
 }
 
 #clock.time {
   color: @bg;
   background-color: @fg4;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 2px 0px 2px;
+  
+  
 }
 
 /* ========= DATE ========= */
@@ -117,22 +108,20 @@ tooltip label {
 #clock.dateicon {
   color: @bg;
   background-color: @green;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 2px 0px 2px;
+  
+  
 }
 
 #clock.date {
   color: @bg;
   background-color: @fg4;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 2px 0px 2px;
+  
+  
 }
 
 /* ========= NOTIFICATIONS ========= */
 
 #custom-dunst {
-  padding: 0px 24px 0px 19px;
-  margin: 0px 0px 0px 0px;
   background-color: @fg4;
 }
 
@@ -142,15 +131,15 @@ tooltip label {
   font-size: 22px;
   color: @bg;
   background-color: @yellow;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 8px 0px 4px;
+  
+  
 }
 
 #pulseaudio.sound {
   color: @bg;
   background-color: @fg4;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 2px 0px 2px;
+  
+  
 }
 
 /* ========= NETWORK ========= */
@@ -158,15 +147,13 @@ tooltip label {
 #network.icon {
   color: @bg;
   background-color: @purple;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
 }
 
 #network.strenght {
   color: @bg;
   background-color: @fg4;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
+  
+  
 }
 
 /* ========= BATTERY ========= */
@@ -175,15 +162,15 @@ tooltip label {
   font-size: 22px;
   color: @bg;
   background-color: @aqua;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 2px 0px 2px;
+  
+  
 }
 
 #battery.value {
   color: @bg;
   background-color: @fg4;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
+  
+  
 }
 
 /* ========= WINDOW ========= */
@@ -191,15 +178,15 @@ tooltip label {
 #window.icon {
   color: @blue;
   background-color: @fg;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
+  
+  
 }
 
 #window.title {
   color: @bg;
   background-color: @fg4;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
+  
+  
 }
 
 /* ========= CPU ========= */
@@ -207,15 +194,15 @@ tooltip label {
 #cpu.icon {
   color: @blue;
   background-color: @fg4;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
+  
+  
 }
 
 #cpu.usage {
   color: @bg;
   background-color: @fg4;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
+  
+  
 }
 
 /* ========= TEMPERATURE ========= */
@@ -223,22 +210,22 @@ tooltip label {
 #temperature.icon {
   color: @blue;
   background-color: @fg4;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
+  
+  
 }
 
 #temperature.value {
   color: @bg;
   background-color: @fg4;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
+  
+  
 }
 
 #custom-powermenu {
   color: @bg;
   background-color: @fg4;
-  padding: 0px 0px 0px 0px;
-  margin: 0px 0px 0px 0px;
+  
+  
 }
 
 @keyframes blink {
@@ -259,4 +246,15 @@ tooltip label {
 
 label:focus {
   background-color: #000000;
+}
+
+.icon{
+  border-radius: 8px 0px 0px 8px;
+  padding: 0px 4px 0px 4px;
+  margin: 0px 0px 0px 4px;
+}
+.dateicon {
+  border-radius: 8px 0px 0px 8px;
+  padding: 0px 4px 0px 4px;
+  margin: 0px 0px 0px 4px;
 }

@@ -2,18 +2,19 @@
   "mode" : "dock",
   "margin-top": 0,
   "margin-left": 0,
-  "margin-bottom": 0,
+  "margin-bottom": 5,
   "margin-right": 0,
   "height": 0, 
   "layer": "top",
   "position": "top",
+  "reload_style_on_change": true,
   //"output": "DP-2",
   "spacing": 0,
   "modules-left": [
-    "custom/launcher"
+    "hyprland/workspaces"
   ],
   "modules-center": [
-    "hyprland/workspaces"
+    "tray"
   ],
   "modules-right": [
     "pulseaudio#icon",
@@ -61,14 +62,7 @@
     "separate-outputs": false
   },
   
-  "custom/launcher": {
-      "interval": "once",
-      "format": "",
-      "on-click": "wofi --show drun --columns 2 -I -s ~/.config/wofi/themes/style-witcher.css",
-      "tooltip": false
-    },
-
-    "backlight": {
+   "backlight": {
       "device": "nvidia_0",
       "max-length": "4",
       "format": "{icon}",
@@ -167,6 +161,7 @@
     },
     "max-length": 10,
     "format": "{icon}",
+    "rotate": 270,
     "format-warning": "{icon}",
     "format-critical": "{icon}",
     "format-charging": "󰂄",
@@ -207,7 +202,7 @@
 },
 
 "clock#date": {
-"format": "{:%Y-%M-%d}",
+"format": "{:%Y-%m-%d}",
 "tooltip-format": "<tt><small>{calendar}</small></tt>",
 "calendar": {
             "mode"          : "month",
