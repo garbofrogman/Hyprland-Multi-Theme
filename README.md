@@ -1,7 +1,8 @@
 # Hyprland-Multi-Theme
+
 A Hyprland config containing multiple themes and an easy way to switch between them and create new ones.
 
-## Structure and functioning:
+## Structure and functioning
 
 The theme that is being used is defined in the main `hyprland.conf` file by sourcing a theme-specific Hyprland config file, for example `source = ~/.config/hypr/themes/nord/nord.conf`. The theme-specific Hyprland configs are in folders inside `.config/hypr/themes` along with a JSON file. The global Hyprland config is in `.config/hypr`.
 
@@ -20,7 +21,7 @@ Then, that theme-specific Hyprland config defines everything related to that the
 2. `nord.conf` sets everything Hyprland can control to the nord theme (borders, wofi menus, startup programs that can take a specifig config file as an argument, etc.)
 3. `nord.conf` then executes `switch-theme.sh` with the `nord` argument after. This script will go parse everything in the corresponding JSON file (`.config/hypr/themes/nord/nord.json`) and change the themes of all the apps/progams it can.
 
-## Structure of the JSON config:
+## Structure of the JSON config
 
 ```
 {
@@ -48,11 +49,11 @@ Then, that theme-specific Hyprland config defines everything related to that the
 * "font" defines the system font for GTK apps, QT apps and VS Code
 * "darkReaderColors" defines the colors Dark Reader will use to recolor web pages
 
-## Theme switching:
+## Theme switching
 
 Switching is handled by a Wofi menu that changes the sourced theme-specific Hyprland config with a `sed` command. It can be found in `.config/wofi/scripts/theme-switcher.sh`.
 
-## Supported apps, programs and settings:
+## Supported apps, programs and settings
 
 * Hyprland
 * Waybar
@@ -72,3 +73,7 @@ Switching is handled by a Wofi menu that changes the sourced theme-specific Hypr
 * Dark Reader
 * SwayLock# Hyprland-Multi-Theme
 A Hyprland config containing multiple themes and an easy way to switch between them and create new ones
+
+# Attributions
+
+Some themes taken from <https://github.com/joao-vitor-sr/wofi-themes-collection>

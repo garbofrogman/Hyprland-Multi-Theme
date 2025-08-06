@@ -1,4 +1,6 @@
 #!/bin/sh
+# TODO
+# - [ ] Check if just switching light-dark and prevent doing extra work . E.g. don't apply Obsidian theme bc most of them auto-switch based on light/dark gnome setting
 
 # getting json config values
 THEME_CONFIG="~/.config/hypr/themes/$1/$1.json"
@@ -19,8 +21,9 @@ DARK_READER_TEXT_COLOR=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".darkRead
 HYPRLOCK_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".hyprLockTheme")
 
 local output = ""
+notify-send "$1"
 
-if [ ! -z $COLOR_SCHEME ]; then
+if [ ! -z "${COLOR_SCHEME}" ]; then
   output=$"COLOR_SCHEME : ${COLOR_SCHEME}"
   # wallpaper
   killall hyprpaper
@@ -31,11 +34,12 @@ if [ ! -z $COLOR_SCHEME ]; then
   # Change Waybar output depending on monitor
   source ~/.config/hypr/scripts/detect-outputs.sh
   sed -i -E 's/("output": ")(.*)(",)/\1'"$MAIN_DISPLAY"'\3/g' ~/.config/waybar/$COLOR_SCHEME/config
-# Nvim theme
-# if [ -z $NVIM_THEME ]; then
-#   sed
-# fi
-# sed -i -E '8 s/(theme = ")(.*)(",)/\1'"$NVIM_THEME"'\3/g' ~/.config/nvim/lua/custom/chadrc.lua
+  # Nvim theme
+  # if [ -z $NVIM_THEME ]; then
+  #   sed
+  # fi
+  # sed -i -E '8 s/(theme = ")(.*)(",)/\1'"$NVIM_THEME"'\3/g' ~/.config/nvim/lua/custom/chadrc.lua
+  sed -i -E '9 s/(colorscheme = ")(.*)(",)/\1'"$COLOR_SCHEME"'\3/g' ~/.config/nvim/lua/plugins/colorscheme.lua
 fi
 
 # Change Wofi main display
@@ -47,7 +51,7 @@ if [ "$HYPRLOCK_THEME" != "null" ]; then
   ln -sf hyprlock/$HYPRLOCK_THEME.conf ~/.config/hypr/hyprlock.conf
 fi
 
-if [ ! -z $GTK_THEME ]; then
+if [ ! -z "${GTK_THEME}" ]; then
   # gtk theme
   sh ~/.config/hypr/scripts/set-gtk-theme.sh $GTK_THEME
 fi
@@ -69,7 +73,7 @@ else
   kvantummanager --set $KVANTUM_THEME
 fi
 
-if [ ! -z $FONT ]; then
+if [ ! -z "${FONT}" ]; then
   output="${output} \n ${FONT}"
   # font
   gsettings set org.gnome.desktop.interface font-name "$FONT"
@@ -80,7 +84,7 @@ if [ ! -z $FONT ]; then
   sed -i -E 's/(general=")(.*)(,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*)/\1'"$FONT"'\3/g' ~/.config/qt6ct/qt6ct.conf
 fi
 
-if [ ! -z $ICON_THEME ]; then
+if [ ! -z "${ICON_THEME}" ]; then
   output="${output} \n ${ICON_THEME}"
   # icon theme
   gsettings set org.gnome.desktop.interface icon-theme $ICON_THEME
@@ -88,18 +92,17 @@ if [ ! -z $ICON_THEME ]; then
   sed -i -E 's/(icon_theme=)(.*)/\1'"$ICON_THEME"'/g' ~/.config/qt6ct/qt6ct.conf
 fi
 
-if [ ! -z $KITTEN_THEME ]; then
-  output="${output} \n ${KITTEN_THEME}"
-  # kitty
+# kitty
+if [ ! -z "${KITTEN_THEME}" ]; then
+  output="${output} \n Kitty theme: ${KITTEN_THEME}"
   kitten themes $KITTEN_THEME
 fi
-
 # vs code theme
 #sed -i -E 's/("workbench.colorTheme": ")(.*)(",)/\1'"$VS_CODE_THEME"'\3/g' '.config/Code - OSS/User/settings.json'
 #sed -i -E 's/("workbench.colorCustomizations": \{)(.*)(\},)/\1'"$VS_CODE_EXTRA_COLORS"'\3/g' '.config/Code - OSS/User/settings.json'
 #sed -i -E 's/("editor.fontFamily": ")(.*)(,.*,.*",)/\1'"$FONT"'\3/g' '.config/Code - OSS/User/settings.json'
 
-if [ ! -z $OBSIDIAN_THEME ]; then
+if [ ! -z "${OBSIDIAN_THEME}" ]; then
   output="${output} \n ${OBSIDIAN_THEME}"
   # Obsidian theme (change the vault name/directory)
   OBSIDIAN_CONFIG="Documents/Obsidian/Vaults/Second Brain/.obsidian/"
@@ -131,4 +134,4 @@ fi
 # sqlite3 .mozilla/firefox/*.default-release/storage-sync-v2.sqlite "UPDATE storage_sync_data SET data = json_replace(data, '$.theme.darkSchemeBackgroundColor', '$DARK_READER_BACKGROUND_COLOR') WHERE ext_id LIKE 'addon@darkreader.org';"
 # sqlite3 .mozilla/firefox/*.default-release/storage-sync-v2.sqlite "UPDATE storage_sync_data SET data = json_replace(data, '$.theme.darkSchemeTextColor', '$DARK_READER_TEXT_COLOR') WHERE ext_id LIKE 'addon@darkreader.org';"
 
-#echo "${output}" >/tmp/test
+echo "${output}" >/tmp/test

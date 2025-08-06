@@ -1,0 +1,18 @@
+{
+  "gtkTheme": "gruvbox-light-hard",
+  "themeType": "Light",
+  "kvantumTheme": "Gruvbox-Dark-Blue",
+  "iconTheme": "Gruvbox-Plus-Dark",
+  "kittyTheme": "Gruvbox Light Hard",
+  "hyprLockTheme": "hyprlock-gruvbox-light-hard",
+  "colorScheme": "gruvbox-light-hard",
+  "vsCodeTheme": "GrunBoxTheme",
+  "vsCodeExtraColors": "",
+  "obsidianTheme": "Obsidian gruvbox",
+  "webcordTheme": "duvbox.css",
+  "font": "Berkeley Mono",
+  "darkReaderColors": {
+    "background": "#fbf1c7",
+    "text": "#3c3836"
+  }
+}
