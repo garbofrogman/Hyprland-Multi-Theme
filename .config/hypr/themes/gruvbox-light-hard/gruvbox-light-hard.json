@@ -11,6 +11,7 @@
   "obsidianTheme": "Obsidian gruvbox",
   "webcordTheme": "duvbox.css",
   "font": "Berkeley Mono",
+  "nvimTheme": "gruvbox",
   "darkReaderColors": {
     "background": "#fbf1c7",
     "text": "#3c3836"

@@ -21,7 +21,6 @@ DARK_READER_TEXT_COLOR=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".darkRead
 HYPRLOCK_THEME=$(cat ~/.config/hypr/themes/$1/$1.json | jq -r ".hyprLockTheme")
 
 local output = ""
-notify-send "$1"
 
 if [ ! -z "${COLOR_SCHEME}" ]; then
   output=$"COLOR_SCHEME : ${COLOR_SCHEME}"
@@ -35,11 +34,11 @@ if [ ! -z "${COLOR_SCHEME}" ]; then
   source ~/.config/hypr/scripts/detect-outputs.sh
   sed -i -E 's/("output": ")(.*)(",)/\1'"$MAIN_DISPLAY"'\3/g' ~/.config/waybar/$COLOR_SCHEME/config
   # Nvim theme
-  # if [ -z $NVIM_THEME ]; then
-  #   sed
-  # fi
-  # sed -i -E '8 s/(theme = ")(.*)(",)/\1'"$NVIM_THEME"'\3/g' ~/.config/nvim/lua/custom/chadrc.lua
-  sed -i -E '9 s/(colorscheme = ")(.*)(",)/\1'"$COLOR_SCHEME"'\3/g' ~/.config/nvim/lua/plugins/colorscheme.lua
+  if [ "$NVIM_THEME" != "null" ]; then
+    sed -i -E '9 s/(colorscheme = ")(.*)(",)/\1'"$NVIM_THEME"'\3/g' ~/.config/nvim/lua/plugins/colorscheme.lua
+  else
+    sed -i -E '9 s/(colorscheme = ")(.*)(",)/\1'"$COLOR_SCHEME"'\3/g' ~/.config/nvim/lua/plugins/colorscheme.lua
+  fi
 fi
 
 # Change Wofi main display
